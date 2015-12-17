@@ -21,17 +21,17 @@ while(1)
         end
     end
     
-    %Check for loops
-    if ismember(nextPoint,line,'rows')
-        return
-    end
+%     %Check for loops
+%     if ismember(nextPoint,line,'rows')
+%         return
+%     end
     
     %Erase the previous point
     inputIm(line(end,1),line(end,2)) = 0;
     
     %Add the new point to the end
     line(end+1,:) = nextPoint;
-    
+
     %Check for targets
     if ismember(nextPoint,targets,'rows')
         return
