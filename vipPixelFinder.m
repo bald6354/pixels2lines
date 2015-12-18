@@ -26,5 +26,14 @@ datacube(:,:,8) = padIm(2:end-1,1:end-2);
 numNeighbors = inputIm.*sum(datacube,3);
 numBranches =  inputIm.*sum(abs(datacube-circshift(datacube,1,3)),3)/2;
 
-[ep(:,1) ep(:,2)] = find(numNeighbors==1 | (numNeighbors==2 & numBranches==1));
-[bp(:,1) bp(:,2)] = find(numBranches==3 | numBranches==4 | numNeighbors==7);
+try
+  [ep(:,1) ep(:,2)] = find(numNeighbors==1 | (numNeighbors==2 & numBranches==1));
+catch
+  ep = zeros(),2);
+end
+
+try
+  [bp(:,1) bp(:,2)] = find(numBranches==3 | numBranches==4 | numNeighbors==7);
+catch
+  bp = zeros(),2);
+end
