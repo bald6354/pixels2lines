@@ -29,11 +29,11 @@ numBranches =  inputIm.*sum(abs(datacube-circshift(datacube,1,3)),3)/2;
 try
   [ep(:,1) ep(:,2)] = find(numNeighbors==1 | (numNeighbors==2 & numBranches==1));
 catch
-  ep = zeros(),2);
+  ep = zeros(0,2);
 end
 
 try
   [bp(:,1) bp(:,2)] = find(numBranches==3 | numBranches==4 | numNeighbors==7);
 catch
-  bp = zeros(),2);
+  bp = zeros(0,2);
 end

@@ -1,20 +1,23 @@
-function lines = pixels2lines(skelIm, debug)
+function lines = pixels2lines(skelIm, debugToggle)
 %Takes an skeletonized image as an input and extracts lines
 
+%How to run
 if false
     %From Mathworks
     BW = imread('circles.png');
     skelIm = bwmorph(BW,'skel',Inf);
     skelIm(128,:) = 0;
+    debugToggle = '1';
+    lines = pixels2lines(skelIm, debugToggle)
 end
 
-%Default debug to false
-if ~exist('debug','var')
-    debug = '0';
+%Default debugToggle to false
+if ~exist('debugToggle','var')
+    debugToggle = '0';
 end
 
 %Convert string to number
-debug = str2num(debug);
+debugToggle = str2num(debugToggle);
 
 %Init
 lines = cell(0,1);
@@ -25,7 +28,7 @@ S = regionprops(CC,'BoundingBox','Image');
 
 for grpid = 1:numel(S)
 
-    if debug
+    if debugToggle
         clc, grpid
     end
     
@@ -38,7 +41,7 @@ for grpid = 1:numel(S)
     %while we still have pixels to extract
     while(sum(grpim(:)))
 
-        if debug
+        if debugToggle
             sum(grpim(:))
         end
     
@@ -46,7 +49,7 @@ for grpid = 1:numel(S)
         [ep, bp] = vipPixelFinder(grpim);
         targets = cat(1, ep, bp);
         
-        if debug
+        if debugToggle
             clf
             imagesc(grpim)
             hold on
@@ -62,7 +65,7 @@ for grpid = 1:numel(S)
         %Trace from the first endpoint to another endpoint or branchpoint
         line = pixelWalker(grpim, targets(1,:), targets(2:end,:));
         
-        if debug
+        if debugToggle
             plot(line(:,2),line(:,1),'k')
             pause(1)
         end
